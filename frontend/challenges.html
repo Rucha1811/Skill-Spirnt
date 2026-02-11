@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenges - SkillSprint</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/challenges.css">
+    <link rel="stylesheet" href="assets/animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <div class="app-container">
+        <header class="game-header glass-card">
+            <button class="btn btn-icon" onclick="navigateTo('dashboard.html')">← Back</button>
+            <h1>Challenge Arena</h1>
+            <div class="header-stats">
+                <span id="totalCompleted">0</span>
+            </div>
+        </header>
+
+        <section class="challenges-section">
+            <div class="challenge-filters">
+                <button class="filter-btn active" onclick="filterChallenges('all')">All</button>
+                <button class="filter-btn" onclick="filterChallenges('Easy')">Easy</button>
+                <button class="filter-btn" onclick="filterChallenges('Medium')">Medium</button>
+                <button class="filter-btn" onclick="filterChallenges('Hard')">Hard</button>
+            </div>
+
+            <div id="challengesContainer" class="challenges-detailed-grid">
+                <!-- Challenges will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Challenge Modal -->
+        <div id="challengeModal" class="modal">
+            <div class="modal-content glass-card">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle">Challenge Title</h2>
+                
+                <div class="modal-body">
+                    <p id="modalDescription">Challenge description</p>
+                    
+                    <div class="code-editor-container">
+                        <textarea id="codeEditor" class="code-editor" placeholder="// Write your code here..."></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-primary" onclick="runCode()">▶ Run Code</button>
+                        <button class="btn btn-success" onclick="submitChallenge()">✓ Submit Solution</button>
+                    </div>
+
+                    <div id="codeOutput" class="code-output" style="display:none;">
+                        <h4>Output:</h4>
+                        <pre id="outputText"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mobile-hud-bar">
+            <a href="index.html" class="hud-icon" title="Home">🏠</a>
+            <a href="dashboard.html" class="hud-icon" title="Dashboard">📊</a>
+            <a href="challenges.html" class="hud-icon active" title="Challenges">🎯</a>
+            <a href="leaderboard.html" class="hud-icon" title="Leaderboard">🏆</a>
+            <a href="profile.html" class="hud-icon" title="Profile">👤</a>
+        </nav>
+
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <script src="assets/utils.js"></script>
+    <script src="assets/animations.js"></script>
+    <script src="assets/api.js"></script>
+    <script src="assets/challenges.js"></script>
+</body>
+</html>

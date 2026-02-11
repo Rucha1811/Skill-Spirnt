@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - SkillSprint</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/profile.css">
+    <link rel="stylesheet" href="assets/animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <div class="app-container">
+        <header class="game-header glass-card">
+            <button class="btn btn-icon" onclick="navigateTo('dashboard.html')">← Back</button>
+            <h1>👤 Profile</h1>
+            <button class="btn btn-icon" onclick="logout()">🚪</button>
+        </header>
+
+        <section class="profile-section">
+            <!-- Profile Header -->
+            <div class="profile-header glass-card">
+                <img id="profileAvatar" class="profile-avatar" src="" alt="Profile">
+                <h2 id="profileName">Player Name</h2>
+                <p id="profileEmail">email@example.com</p>
+
+                <!-- Level & XP Display -->
+                <div class="level-display">
+                    <div class="level-circle" id="levelCircle">
+                        <span class="level-number" id="profileLevel">1</span>
+                    </div>
+                    <div class="level-info">
+                        <div class="xp-bar-container">
+                            <div class="xp-bar">
+                                <div class="xp-bar-fill" id="profileXpBar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <p id="profileXpText">0 / 100 XP</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="profile-stats glass-card">
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="totalChallenges">0</div>
+                    <div class="stat-label">Challenges Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚔️</div>
+                    <div class="stat-value" id="totalBattles">0</div>
+                    <div class="stat-label">Battles Won</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="currentStreak">0</div>
+                    <div class="stat-label">Current Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="bestStreak">0</div>
+                    <div class="stat-label">Longest Streak</div>
+                </div>
+            </div>
+
+            <!-- Badges Section -->
+            <div class="badges-section glass-card">
+                <h3>🏅 Badges & Achievements</h3>
+                <div id="badgesContainer" class="badges-grid">
+                    <!-- Badges will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Streak Calendar -->
+            <div class="streak-calendar glass-card">
+                <h3>🔥 Streak Calendar</h3>
+                <div id="streakCalendar" class="calendar-grid">
+                    <!-- Calendar will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Achievement Popups -->
+            <div id="achievementPopups" class="achievement-popups">
+                <!-- Achievement popups will appear here -->
+            </div>
+        </section>
+
+        <nav class="mobile-hud-bar">
+            <a href="index.html" class="hud-icon" title="Home">🏠</a>
+            <a href="dashboard.html" class="hud-icon" title="Dashboard">📊</a>
+            <a href="challenges.html" class="hud-icon" title="Challenges">🎯</a>
+            <a href="leaderboard.html" class="hud-icon" title="Leaderboard">🏆</a>
+            <a href="profile.html" class="hud-icon active" title="Profile">👤</a>
+        </nav>
+    </div>
+
+    <script src="assets/utils.js"></script>
+    <script src="assets/animations.js"></script>
+    <script src="assets/api.js"></script>
+    <script src="assets/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SkillSprint</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <link rel="stylesheet" href="assets/animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <header class="game-header glass-card">
+            <div class="header-left">
+                <img class="user-avatar" id="userAvatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" alt="Avatar">
+                <div class="header-info">
+                    <h2 id="userName" class="username">Player Name</h2>
+                    <span class="level-badge" id="levelBadge">Level 1 🏆</span>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <div class="xp-bar-wrapper">
+                    <div class="xp-bar-label">
+                        <span>XP Progress</span>
+                        <span id="xpText" class="xp-text">0 / 100</span>
+                    </div>
+                    <div class="xp-bar">
+                        <div class="xp-bar-fill shimmer" id="xpBarFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="streak-counter">
+                    <span class="flame-animation">🔥</span>
+                    <span id="streakCount" class="streak-number">0</span>
+                    <span class="streak-label">day streak</span>
+                </div>
+                <button class="btn btn-icon" onclick="toggleMenu()">☰</button>
+            </div>
+        </header>
+
+        <!-- Daily Challenges Section -->
+        <section class="challenges-section">
+            <h2 class="section-title">⚡ Daily Challenges</h2>
+            <div class="challenges-scroll-container">
+                <div id="dailyChallengesContainer" class="challenges-grid">
+                    <!-- Challenges will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats Section -->
+        <section class="quick-stats-section">
+            <h2 class="section-title">Your Stats</h2>
+            <div class="stats-row">
+                <div class="stat-item glass-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="challengesCompleted">0</div>
+                    <div class="stat-name">Challenges Completed</div>
+                </div>
+                <div class="stat-item glass-card">
+                    <div class="stat-icon">⚔️</div>
+                    <div class="stat-value" id="battlesWon">0</div>
+                    <div class="stat-name">Battles Won</div>
+                </div>
+                <div class="stat-item glass-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value" id="userRank">--</div>
+                    <div class="stat-name">Global Rank</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Hub Buttons -->
+        <section class="game-hub-section">
+            <h2 class="section-title">Game Modes</h2>
+            <div class="game-modes-grid">
+                <div class="mode-card glass-card" onclick="navigateTo('challenges.html')">
+                    <div class="mode-icon">🧩</div>
+                    <h3>Challenge Arena</h3>
+                    <p>Solve coding challenges</p>
+                    <div class="mode-tag">Solo</div>
+                </div>
+
+                <div class="mode-card glass-card" onclick="navigateTo('battle.html')">
+                    <div class="mode-icon">⚔️</div>
+                    <h3>Battle Arena</h3>
+                    <p>1v1 Real-time Matches</p>
+                    <div class="mode-tag">PvP</div>
+                </div>
+
+                <div class="mode-card glass-card" onclick="navigateTo('quiz.html')">
+                    <div class="mode-icon">🧠</div>
+                    <h3>Quiz Mode</h3>
+                    <p>Test your knowledge</p>
+                    <div class="mode-tag">Multiplayer</div>
+                </div>
+
+                <div class="mode-card glass-card" onclick="navigateTo('leaderboard.html')">
+                    <div class="mode-icon">🏅</div>
+                    <h3>Leaderboards</h3>
+                    <p>Global Rankings</p>
+                    <div class="mode-tag">Competitive</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notifications -->
+        <div id="notificationContainer" class="notification-container"></div>
+
+        <!-- Mobile HUD Bar -->
+        <nav class="mobile-hud-bar">
+            <a href="index.html" class="hud-icon" title="Home">🏠</a>
+            <a href="dashboard.html" class="hud-icon active" title="Dashboard">📊</a>
+            <a href="challenges.html" class="hud-icon" title="Challenges">🎯</a>
+            <a href="leaderboard.html" class="hud-icon" title="Leaderboard">🏆</a>
+            <a href="profile.html" class="hud-icon" title="Profile">👤</a>
+        </nav>
+    </div>
+
+    <script src="assets/utils.js"></script>
+    <script src="assets/animations.js"></script>
+    <script src="assets/api.js"></script>
+    <script src="assets/dashboard.js"></script>
+</body>
+</html>

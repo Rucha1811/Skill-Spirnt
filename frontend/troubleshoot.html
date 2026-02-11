@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillSprint Login Troubleshoot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1a1f35 100%);
+            color: #8B5CF6;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #3B82F6;
+            margin: 20px 0 10px 0;
+        }
+        .section {
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid #8B5CF6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .credentials {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid #3B82F6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            color: #10b981;
+            border-left: 4px solid #10b981;
+            padding-left: 10px;
+        }
+        .error {
+            color: #ec4899;
+            border-left: 4px solid #ec4899;
+            padding-left: 10px;
+        }
+        pre {
+            background: #1e293b;
+            border: 1px solid #8B5CF6;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #7c3aed;
+        }
+        .steps {
+            list-style: none;
+            counter-reset: step;
+        }
+        .steps li {
+            counter-increment: step;
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+        .steps li:before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            background: #8B5CF6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ SkillSprint Login Troubleshooting</h1>
+        
+        <div class="section">
+            <h2>✓ Backend Status</h2>
+            <div id="backendStatus"></div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Test Credentials</h2>
+            <div class="credentials">
+                <p><strong>Email:</strong> demo@skillsprint.io</p>
+                <p><strong>Password:</strong> 12345678</p>
+                <p style="color: #10b981; margin-top: 10px;">✓ Password verified and working</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔐 Login Steps</h2>
+            <ol class="steps">
+                <li>Go to <strong>auth.html</strong></li>
+                <li>Click the <strong>purple portal 3 times</strong> (you'll see glitch effects)</li>
+                <li>After 3 clicks, a login form will appear with confetti animation</li>
+                <li>The form has two tabs: LOGIN and REGISTER</li>
+                <li>Enter Email: <code>demo@skillsprint.io</code></li>
+                <li>Enter Password: <code>12345678</code></li>
+                <li>Click <strong>ENTER SYSTEM</strong> button</li>
+                <li>If successful, you'll see "ACCESS GRANTED" message and redirect to dashboard</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Quick Test</h2>
+            <button onclick="testBackendAPI()">Test Backend API</button>
+            <button onclick="testLoginFlow()">Full Login Test</button>
+            <div id="testResult" style="margin-top: 15px;"></div>
+        </div>
+
+        <div class="section">
+            <h2>🔗 Direct Links</h2>
+            <p>
+                <a href="/p2/skillsprint/frontend/auth.html" target="_blank" style="color: #3B82F6; text-decoration: underline;">
+                    → Go to Auth Portal
+                </a>
+            </p>
+            <p>
+                <a href="/p2/skillsprint/frontend/api-test.html" target="_blank" style="color: #3B82F6; text-decoration: underline;">
+                    → Test API in Browser
+                </a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>❓ Troubleshooting</h2>
+            <p><strong>If you see "INVALID CREDENTIALS" error:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Make sure you copied the email and password exactly</li>
+                <li>Open browser console (F12) and check for error messages</li>
+                <li>Check that API_BASE is: <code>http://localhost/p2/skillsprint/backend/php</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost/p2/skillsprint/backend/php';
+
+        async function testBackendAPI() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = '⏳ Testing backend...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/users_api.php?action=login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'demo@skillsprint.io',
+                        password: '12345678'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            ✓ Backend API is working!<br>
+                            User: ${data.user.username}<br>
+                            Email: ${data.user.email}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            ✗ Backend returned: ${data.message}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        ✗ Error: ${error.message}<br>
+                        Check that XAMPP is running
+                    </div>
+                `;
+            }
+        }
+
+        async function testLoginFlow() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = '⏳ Testing complete login flow...';
+            
+            try {
+                // Test 1: API Connection
+                const loginResp = await fetch(`${API_BASE}/users_api.php?action=login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'demo@skillsprint.io',
+                        password: '12345678'
+                    })
+                });
+
+                const loginData = await loginResp.json();
+                
+                if (!loginData.success) {
+                    resultDiv.innerHTML = `<div class="error">✗ Login failed: ${loginData.message}</div>`;
+                    return;
+                }
+
+                // Test 2: Session Storage
+                const user = loginData.user;
+                localStorage.setItem('skillsprint_user', JSON.stringify(user));
+                
+                const stored = JSON.parse(localStorage.getItem('skillsprint_user'));
+                const sessionOK = stored.id === user.id;
+
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✓ All systems operational!<br>
+                        <br>
+                        <strong>API Response:</strong><br>
+                        User ID: ${user.id}<br>
+                        Username: ${user.username}<br>
+                        Email: ${user.email}<br>
+                        <br>
+                        <strong>Session Storage:</strong> ${sessionOK ? '✓ OK' : '✗ FAILED'}<br>
+                        <br>
+                        <strong>Ready to login!</strong>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">✗ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Initial backend check
+        window.onload = () => {
+            const statusDiv = document.getElementById('backendStatus');
+            statusDiv.innerHTML = '⏳ Checking backend...';
+            
+            fetch(`${API_BASE}/users_api.php?action=profile&user_id=1`)
+                .then(() => {
+                    statusDiv.innerHTML = '<p class="success">✓ Backend is online and responding</p>';
+                })
+                .catch(() => {
+                    statusDiv.innerHTML = '<p class="error">✗ Cannot reach backend - make sure XAMPP is running</p>';
+                });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0f172a;
+            color: #8B5CF6;
+            padding: 20px;
+        }
+        pre {
+            background: #1e293b;
+            padding: 20px;
+            border: 1px solid #8B5CF6;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8B5CF6;
+            color: #8B5CF6;
+        }
+    </style>
+</head>
+<body>
+    <h1>SkillSprint API Test</h1>
+    
+    <h2>Test Login</h2>
+    <div>
+        <input type="email" id="email" placeholder="Email" value="test@skillsprint.io">
+        <input type="password" id="password" placeholder="Password" value="password">
+        <button onclick="testLogin()">Test Login API</button>
+    </div>
+    
+    <h2>Response:</h2>
+    <pre id="response">Waiting...</pre>
+    
+    <h2>Debug Info:</h2>
+    <pre id="debug">Checking API endpoint...</pre>
+
+    <script>
+        const API_BASE = 'http://localhost/p2/skillsprint/backend/php';
+        
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const debugInfo = `
+Testing Login
+=============
+Email: ${email}
+Password: ${password}
+API Endpoint: ${API_BASE}/users_api.php?action=login
+            `;
+            
+            document.getElementById('debug').textContent = debugInfo;
+            document.getElementById('response').textContent = 'Sending request...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/users_api.php?action=login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+                
+                if (data.success) {
+                    document.getElementById('debug').textContent += `
+✓ Login Successful!
+Response Status: ${data.success}
+Message: ${data.message}
+User ID: ${data.user?.id}
+Username: ${data.user?.username}
+                    `;
+                } else {
+                    document.getElementById('debug').textContent += `
+✗ Login Failed!
+Response Status: ${data.success}
+Message: ${data.message}
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('response').textContent = 'ERROR: ' + error.message;
+                document.getElementById('debug').textContent += '\n\nERROR: ' + error.message;
+            }
+        }
+        
+        // Test on load
+        window.onload = () => testLogin();
+    </script>
+</body>
+</html>

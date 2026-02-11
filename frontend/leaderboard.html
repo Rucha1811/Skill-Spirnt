@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - SkillSprint</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/leaderboard.css">
+    <link rel="stylesheet" href="assets/animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <div class="app-container">
+        <header class="game-header glass-card">
+            <button class="btn btn-icon" onclick="navigateTo('dashboard.html')">← Back</button>
+            <h1>🏆 Leaderboards</h1>
+            <div class="header-controls">
+                <button class="filter-btn active" onclick="switchLeaderboard('global')">Global</button>
+                <button class="filter-btn" onclick="switchLeaderboard('weekly')">Weekly</button>
+            </div>
+        </header>
+
+        <section class="leaderboard-section">
+            <!-- Top 3 Podium -->
+            <div class="podium-container">
+                <div id="podiumContent">
+                    <!-- Top 3 will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Full Leaderboard List -->
+            <div class="leaderboard-list glass-card">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Level</th>
+                            <th>XP</th>
+                            <th>Challenges</th>
+                            <th>Battles</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Leaderboard rows will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- User Stats Section -->
+            <div class="user-rank-card glass-card">
+                <h3>Your Position</h3>
+                <div class="rank-display">
+                    <span class="rank-number" id="userRank">--</span>
+                    <span class="rank-label">Global Rank</span>
+                </div>
+            </div>
+        </section>
+
+        <nav class="mobile-hud-bar">
+            <a href="index.html" class="hud-icon" title="Home">🏠</a>
+            <a href="dashboard.html" class="hud-icon" title="Dashboard">📊</a>
+            <a href="challenges.html" class="hud-icon" title="Challenges">🎯</a>
+            <a href="leaderboard.html" class="hud-icon active" title="Leaderboard">🏆</a>
+            <a href="profile.html" class="hud-icon" title="Profile">👤</a>
+        </nav>
+    </div>
+
+    <script src="assets/utils.js"></script>
+    <script src="assets/animations.js"></script>
+    <script src="assets/api.js"></script>
+    <script src="assets/leaderboard.js"></script>
+</body>
+</html>
